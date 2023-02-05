@@ -30,6 +30,6 @@
     ```
     DBのマイグレーション＆seed実行
     ```bash
-    php artisan migrate:refresh --seed
+    sail artisan migrate:refresh --seed
     ```
     
