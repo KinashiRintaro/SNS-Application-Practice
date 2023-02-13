@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use App\Models\Tweet;
 
-class TweetsSeeder extends Seeder
+class UsersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +14,7 @@ class TweetsSeeder extends Seeder
      * @return void
      */
     public function run()
-    { 
-        Tweet::factory()->count(10)->create();
+    {
+        User::factory()->create();
     }
 }
