@@ -31,6 +31,16 @@ class CreateRequest extends FormRequest
     }
 
     /**
+     * Requestクラスのuser関数でログイン中のユーザーが取得できる
+     *
+     * @return int
+     */
+    public function userId(): int
+    {
+        return $this->user()->id;
+    }
+
+    /**
      * Requestからツイートデータを取得する
      *
      * @return string
