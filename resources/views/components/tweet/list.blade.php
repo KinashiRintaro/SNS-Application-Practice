@@ -1,5 +1,4 @@
 @props([
-    // 初期値としてから配列を渡すことでエラー防止
     'tweets' => []
 ])
 <div class="bg-white rounded-md shadow-lg mt-5 mb-5">
@@ -13,7 +12,7 @@
                 <p class="text-gray-600">{!! nl2br(e($tweet->content)) !!}</p>
             </div>
             <div>
-                <!-- TODO 編集と削除 -->
+                <x-tweet.options :tweetId="$tweet->id" :userId="$tweet->user_id"></x-tweet.options>
             </div>
         </li>
         @endforeach
