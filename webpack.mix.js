@@ -15,4 +15,8 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'pub
     require('postcss-import'),
     require('tailwindcss'),
     require('autoprefixer'),
-]).version();
+]);
+// 本番向けのビルドのみバージョニングを利用
+if (mix.inProduction()) {
+    mix.version(); // ファイル名にバージョニングをつけることでキャッシュパスティングを実現 p149
+}
