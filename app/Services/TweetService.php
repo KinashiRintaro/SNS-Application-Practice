@@ -9,7 +9,8 @@ class TweetService
 {
     public function getTweets()
     {
-        return Tweet::orderBy('created_at', 'DESC')->get();
+        // Eager Loading：withを使用してtweetとimageは別のSQL文で呼び出すようにする（N＋1問題対策）
+        return Tweet::with('images')->orderBy('created_at', 'DESC')->get();
     }
 
     public function checkOwnTweet(int $userId, int $tweetId): bool
