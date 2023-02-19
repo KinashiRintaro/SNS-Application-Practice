@@ -13,8 +13,11 @@ use Illuminate\Queue\SerializesModels;
 /**
  * 新規ユーザーが登録された際の通知機能
  */
-class NewUserIntroduction extends Mailable
+class NewUserIntroduction extends Mailable implements ShouldQueue
 {
+    // implements：インターフェースを使用する。
+    // このクラスはキューを経由するクラスであることを明示
+
     use Queueable, SerializesModels;
 
     public $subject = '新しいユーザーが追加されました。';
