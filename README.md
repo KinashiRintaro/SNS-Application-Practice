@@ -1,6 +1,7 @@
 
 ## 概要
-書籍「[プロフェッショナル Web プログラミング for Laravel 9](https://books.mdn.co.jp/books/3221303041/)」を実践
+書籍「[プロフェッショナル Web プログラミング for Laravel 9](https://books.mdn.co.jp/books/3221303041/)」を実践。
+
 チャプターごとにPR、ブランチを作成し、進めております。
 
 以下のようなつぶやきアプリを作成
