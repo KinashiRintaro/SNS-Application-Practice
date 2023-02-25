@@ -15,7 +15,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // 毎時8分
+        $schedule->command('sample-command')->hourlyAt(8)
+            ->emailOutputTo('schedule@example.com');
+        // 毎日3:15（cron表記）
+        $schedule->command('mail:send-daily-tweet-count-mail')
+            ->cron('15 3 * * *');
     }
 
     /**
