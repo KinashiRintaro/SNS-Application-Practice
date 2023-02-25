@@ -42,4 +42,4 @@
     ```bash
     sail artisan migrate:refresh --seed
     ```
-    
+3. こちらのパスからアプリに遷移できます。：[http://localhost/tweet](http://localhost/tweet)
