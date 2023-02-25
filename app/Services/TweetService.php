@@ -60,4 +60,28 @@ class TweetService
             }
         });
     }
+
+    /**
+     * ツイートを削除する
+     *
+     * @param integer $tweetId
+     * @return void
+     */
+    public function deleteTweet(int $tweetId)
+    {
+        DB::transaction(function () use ($tweetId) {
+            $tweet = Tweet::where('id', $tweetId)->firstOrFail();
+            $tweet->images()->each(function ($image) use ($tweet){
+                $filePath = 'public/images/' . $image->name;
+                if(Storage::exists($filePath)){
+                    Storage::delete($filePath);
+                }
+                // detach: 中間テーブルのデータを削除
+                $tweet->images()->detach($image->id);
+                $image->delete();
+            });
+
+            $tweet->delete();
+        });
+    }
 }
