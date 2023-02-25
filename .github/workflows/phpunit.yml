@@ -1,6 +1,8 @@
 name: Laravel
 
+# ワークフローを実行するタイミングを設定
 on:
+  # ブランチがpushされたときとPRが作成された際に動く
   push:
   pull_request:
 
@@ -11,9 +13,10 @@ env:
 
 jobs:
    phpunit:
-
+     # 最新のubuntu環境でジョブを実行
      runs-on: ubuntu-latest
 
+     # ジョブに関連して起動するサービスの設定
      services:
        mysql.test:
          image: 'mysql/mysql-server:8.0'
@@ -24,13 +27,16 @@ jobs:
            MYSQL_USER: ${{ env.DB_USERNAME }}
            MYSQL_PASSWORD: ${{ env.DB_PASSWORD }}
            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+         # --health- ヘルスチェック：サービスが起動するまで待機して次のタスクを実行する
          options: >-
            --health-cmd "mysqladmin ping"
            --health-interval 10s
            --health-timeout 5s
            --health-retries 5
 
+     # ジョブで実行するタスク
      steps:
+       # checkoutを実行してテスト環境にファイルの一式をダウンロード
        - uses: actions/checkout@v2
        - name: Setup PHP
          uses: shivammathur/setup-php@v2
@@ -39,12 +45,15 @@ jobs:
            tools: composer:v2
        - name: Copy .env
          run: cp .env.example .env.testing
+       # composer installを実行
        - name: Install Dependencies
+         # キャッシュが利用できる場合は利用する
          if: steps.cache.outputs.cache-hit != 'true'
          run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
        - name: Generate key
          run: php artisan key:generate --env testing
        - name: Set hostname
          run: sudo echo "127.0.0.1 mysql.test" | sudo tee -a /etc/hosts
+       # テストの実行
        - name: Execute tests (Unit and Feature tests) via PHPUnit
-         run: vendor/bin/phpunit
+         run: ./vendor/bin/pest
