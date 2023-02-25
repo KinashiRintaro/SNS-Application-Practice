@@ -3,7 +3,10 @@
 namespace App\Services;
 
 use App\Models\Tweet;
+use App\Models\Image;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class TweetService
 {
@@ -29,5 +32,32 @@ class TweetService
         return Tweet::whereDate('created_at', '>=', Carbon::yesterday()->toDateTimeString())
             ->whereDate('created_at', '<', Carbon::today()->toDateTimeString())
             ->count();
+    }
+
+    /**
+     * ツイートを保存する
+     *
+     * @param integer $userId
+     * @param string $content
+     * @param array $images
+     * @return void
+     */
+    public function saveTweet(int $userId, string $content, array $images): void {
+        // DBファサードを利用してトランザクションを作成
+        DB::transaction(function () use ($userId, $content, $images) {
+            $tweet = new Tweet;
+            $tweet->user_id = $userId;
+            $tweet->content = $content;
+            $tweet->save();
+            foreach ($images as $image) {
+                Storage::putFile('public/images', $image);
+                $imageModele = new Image;
+                // ランダムに名前を生成
+                $imageModele->name = $image->hashName();
+                $imageModele->save();
+                // attach：Tweetモデルを経由して呟きと画像の交差テーブルにデータを保存
+                $tweet->images()->attach($imageModele->id);
+            }
+        });
     }
 }

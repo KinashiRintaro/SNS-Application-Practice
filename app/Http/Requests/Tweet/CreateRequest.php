@@ -27,6 +27,9 @@ class CreateRequest extends FormRequest
     {
         return [
             'tweet' => 'required|max:140',
+            'images' => 'array|max:4',
+            // array.*：配列の中身に対するバリデーション
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 
@@ -49,5 +52,15 @@ class CreateRequest extends FormRequest
     {
         // Request.input() : リクエストからデータを取得する 
         return $this->input('tweet');
+    }
+
+    /**
+     * リクエストで送られてきたファイルからimagesというキー名のものを取り出す
+     *
+     * @return array
+     */
+    public function images(): array
+    {
+        return $this->file('images', []);
     }
 }
