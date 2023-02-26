@@ -17,11 +17,6 @@
 1. `.env.example`をコピーして`.env`としてください
 
 2. 以下のコマンドをアプリディレクトリ直下で実行します
-    
-    PHPパッケージをインストール
-    ```bash
-    composer install
-    ```
     こちらはsailを使用可能にするためのコマンドです。
     ```bash
     docker run --rm \
@@ -33,6 +28,18 @@
     dockerを立ち上げる
     ```bash
     sail up -d
+    ```
+    npmを利用してパッケージをインストール
+    ```
+    sail npm install
+    ```
+    Laravel Mixを実行してJS ,CSSを読み込む
+    ```
+    sail npm run development
+    ```
+    storageディレクトリをpublicから参照できるようにシンポリックリンクを生成
+    ```
+    sail artisan storage:link
     ```
     アプリケーションキーの初期化
     ```bash
