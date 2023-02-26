@@ -4,7 +4,6 @@ name: Laravel
 on:
   # ブランチがpushされたときとPRが作成された際に動く
   push:
-  pull_request:
 
 env:
   DB_USERNAME: sail
@@ -38,6 +37,8 @@ jobs:
      steps:
        # checkoutを実行してテスト環境にファイルの一式をダウンロード
        - uses: actions/checkout@v2
+         with:
+           ref: ${{ github.event.pull_request.head.sha }}
        - name: Setup PHP
          uses: shivammathur/setup-php@v2
          with:
