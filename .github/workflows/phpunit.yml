@@ -56,8 +56,8 @@ jobs:
        - name: Set hostname
          run: sudo echo "127.0.0.1 mysql.test" | sudo tee -a /etc/hosts
        # テストの実行
-       - name: Execute tests (Unit and Feature tests) via PHPUnit
-         run: php artisan test/Unit
+       - name: Execute tests
+         run: php artisan test test/Unit
 
   Feature-test:
      # 最新のubuntu環境でジョブを実行
@@ -104,5 +104,5 @@ jobs:
        - name: Set hostname
          run: sudo echo "127.0.0.1 mysql.test" | sudo tee -a /etc/hosts
        # テストの実行
-       - name: Execute tests (Unit and Feature tests) via PHPUnit
-         run: php artisan test/Feature
+       - name: Execute tests
+         run: php artisan test test/Feature
