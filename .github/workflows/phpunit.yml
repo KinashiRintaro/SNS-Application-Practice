@@ -103,6 +103,8 @@ jobs:
          run: php artisan key:generate --env testing
        - name: Set hostname
          run: sudo echo "127.0.0.1 mysql.test" | sudo tee -a /etc/hosts
+       - name: npm run build
+         run: npm run build
        # テストの実行
        - name: Execute tests
          run: php artisan test tests/Feature
