@@ -57,7 +57,7 @@ jobs:
          run: sudo echo "127.0.0.1 mysql.test" | sudo tee -a /etc/hosts
        # テストの実行
        - name: Execute tests
-         run: php artisan test test/Unit
+         run: php artisan test tests/Unit
 
   Feature-test:
      # 最新のubuntu環境でジョブを実行
@@ -105,4 +105,4 @@ jobs:
          run: sudo echo "127.0.0.1 mysql.test" | sudo tee -a /etc/hosts
        # テストの実行
        - name: Execute tests
-         run: php artisan test test/Feature
+         run: php artisan test tests/Feature
