@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Tweeet;
+namespace Tests\Feature\Tweet;
 
 use App\Models\User;
 use App\Models\Tweet;
@@ -10,9 +10,7 @@ use Tests\TestCase;
 
 class DeleteTest extends TestCase
 {
-    // テストの実行前後にDBが初期化される
     use RefreshDatabase;
-
     /**
      * A basic feature test example.
      *
@@ -20,16 +18,13 @@ class DeleteTest extends TestCase
      */
     public function test_delete_successed()
     {
-        $user = User::factory()->create();
-        $tweet = Tweet::factory()->create([
-            'user_id' => $user->id,
-        ]);
+        $user = User::factory()->create(); // ユーザーを作成
 
-        // 作成したユーザーでログインした状態にする
-        $this->actingAs($user);
-        
-        // つぶやき削除のHTTPリクエスト「/tweet/delete//{tweetId}」に対するテスト
-        $response = $this->delete('/tweet/delete/'. $tweet->id);
+        $tweet = Tweet::factory()->create(['user_id' => $user->id]); // つぶやきを作成
+
+        $this->actingAs($user); // 指定したユーザーでログインした状態にする
+
+        $response = $this->delete('/tweet/delete/' . $tweet->id); // 作成したつぶやきIDを指定
 
         $response->assertRedirect('/tweet');
     }
