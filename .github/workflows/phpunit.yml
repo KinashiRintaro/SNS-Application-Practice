@@ -1,8 +1,6 @@
 name: Laravel
 
-# ワークフローを実行するタイミングを設定
 on:
-  # ブランチがpushされたときとPRが作成された際に動く
   push:
 
 env:
@@ -15,7 +13,6 @@ jobs:
      # 最新のubuntu環境でジョブを実行
      runs-on: ubuntu-latest
 
-     # ジョブに関連して起動するサービスの設定
      services:
        mysql.test:
          image: 'mysql/mysql-server:8.0'
@@ -26,7 +23,6 @@ jobs:
            MYSQL_USER: ${{ env.DB_USERNAME }}
            MYSQL_PASSWORD: ${{ env.DB_PASSWORD }}
            MYSQL_ALLOW_EMPTY_PASSWORD: 1
-         # --health- ヘルスチェック：サービスが起動するまで待機して次のタスクを実行する
          options: >-
            --health-cmd "mysqladmin ping"
            --health-interval 10s

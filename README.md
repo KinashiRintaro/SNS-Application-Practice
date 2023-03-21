@@ -42,4 +42,23 @@
     ```bash
     sail artisan migrate:refresh --seed
     ```
+    npm install
+    ```bash
+    sail npm install
+    ```
+    CSSを反映
+    ```bash
+    ail npm run development
+    ```
+    storageディレクトリにシンポリックリンクを作成
+    ```bash
+    sail artisan storage:link
+    ```
+    laravel/duskをインストール
+    ```bash
+    sail composer require --dev laravel/dusk
+    sail artisan dusk:install
+    ```
+    
+    
 3. こちらのパスからアプリに遷移できます。：[http://localhost/tweet](http://localhost/tweet)
