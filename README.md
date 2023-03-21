@@ -54,5 +54,11 @@
     ```bash
     sail artisan storage:link
     ```
+    laravel/duskをインストール
+    ```bash
+    sail composer require --dev laravel/dusk
+    sail artisan dusk:install
+    ```
+    
     
 3. こちらのパスからアプリに遷移できます。：[http://localhost/tweet](http://localhost/tweet)
